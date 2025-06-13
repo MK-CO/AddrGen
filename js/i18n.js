@@ -1263,8 +1263,13 @@ function updatePageText() {
     }
     
     // 更新页面标题
-    const titleKey = document.title.split(' - ')[0].toLowerCase().replace(' ', '.');
-    document.title = i18next.t(`page.title.${titleKey}`);
+    const titleElement = document.querySelector('title[data-i18n]');
+    if (titleElement) {
+        const titleKey = titleElement.getAttribute('data-i18n');
+        if (titleKey) {
+            document.title = i18next.t(titleKey);
+        }
+    }
 }
 
 // 切换语言
@@ -1331,4 +1336,4 @@ function showToast(message) {
             document.body.removeChild(toast);
         }, 300);
     }, 2000);
-} 
+}
